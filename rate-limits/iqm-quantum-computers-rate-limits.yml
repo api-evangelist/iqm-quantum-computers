@@ -1,0 +1,46 @@
+generated: '2026-08-23'
+method: searched
+source: https://iqm.tech/products/iqm-resonance/
+limit_count: 0
+note: >-
+  HONEST ZERO. IQM publishes no numeric rate limit anywhere public — not in the Resonance
+  product page, not in the docs at docs.iqm.tech, and not in the Apache-2.0 iqm-client
+  source. What can be established is that limiting EXISTS: the first-party error taxonomy in
+  iqm-station-control-client maps HTTP 429 to a dedicated RateLimitError class, so the server
+  does throttle. It just never says at what threshold, over what window, or with what
+  Retry-After contract. An agent cannot plan against this; it can only react to a 429.
+  Separately, the real scarcity control on this API is not requests-per-second at all — it is
+  the credit quota and the job queue, which are recorded in plans/.
+limits: []
+response_headers:
+  observed: []
+  documented: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is documented, and none could be
+    observed anonymously because every path on resonance.iqm.tech returns 401 before any
+    limit is evaluated.
+status_on_exhaustion: 429
+error_class: RateLimitError
+error_source: >-
+  https://pypi.org/project/iqm-station-control-client/ —
+  src/iqm/station_control/interface/errors.py (_ERROR_TO_STATUS_CODE_MAPPING)
+quotas:
+- scope: per-account
+  tier: Starter
+  limit: 30 credits per month
+  unit: credits (QPU seconds)
+  conditional: "based on availability"
+  source: https://iqm.tech/products/iqm-resonance/
+- scope: per-account
+  tier: Pay-as-you-go
+  limit: null
+  unit: prepaid credits that do not expire
+  note: No cap; execution is serialized through a first-come, first-served queue.
+- scope: per-account
+  tier: Skip-the-queue
+  limit: null
+  unit: prepaid credits plus reserved timeslots
+  note: Queue bypass via guaranteed exclusive access during reserved timeslots.
+client_side_controls:
+- {name: IQM_CLIENT_REQUESTS_TIMEOUT, default: 120, unit: seconds, description: Per-request HTTP timeout enforced by iqm-client.}
+- {name: IQM_CLIENT_SECONDS_BETWEEN_CALLS, default: 1.0, unit: seconds, description: Interval iqm-client waits between job-status polls — a client-side politeness control, not a server limit.}

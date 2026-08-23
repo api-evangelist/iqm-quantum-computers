@@ -1,0 +1,69 @@
+generated: '2026-08-23'
+method: searched
+source: https://docs.iqm.tech/iqm-client/changelog.html
+mirror: https://pypi.org/project/iqm-client/ (CHANGELOG.md in the source distribution)
+note: >-
+  IQM publishes no product-level changelog for the Resonance service itself. What it does
+  publish, and publishes well, is a dated Keep-a-Changelog-style file for the client library
+  that fronts the API — with an explicit "Breaking changes" section per release. Because the
+  client is the only public contract, this file IS the API changelog in practice, and it is
+  where server-side URL and model changes surface. Recent window only.
+scheme: semver
+current_version: 35.0.1
+current_date: '2026-08-05'
+release_cadence: >-
+  Frequent — 30 major/minor releases between 2025-08 and 2026-08. Major versions carry
+  breaking changes and are documented as such.
+breaking_change_discipline: explicit-section-per-release
+entries:
+- version: 35.0.1
+  date: '2026-08-05'
+  breaking: false
+  highlights:
+  - Packaging-only release for the 4.6.1 train. No functional changes.
+- version: 35.0.0
+  date: '2026-07-07'
+  breaking: true
+  highlights:
+  - >-
+    Retired three legacy IQM Server URL formats — URLs embedding the quantum computer name
+    (https://resonance.meetiqm.com/garnet), the ":timeslot" suffix, and all
+    https://cocos.resonance.meetiqm.com hosts. Callers must now use
+    https://resonance.iqm.tech with the quantum_computer parameter.
+  - Domain migrated from meetiqm.com to iqm.tech.
+  - Client now raises on insecure plain-HTTP requests to remote hosts.
+  - >-
+    Security hardening — Authorization header is stripped on insecure remote HTTP calls and
+    automatic redirects are blocked for mutating requests.
+  - Added the iqm.qrisp_iqm package for executing Qrisp circuits, plus the qrisp QEC module.
+  - iqm_server_url and quantum_computer readable from IQM_SERVER_URL / IQM_QUANTUM_COMPUTER.
+- version: 34.0.0
+  date: null
+  date_note: IQM published this release without a date in the changelog — an honest gap in an otherwise dated file.
+  breaking: true
+  highlights:
+  - Removed obsolete QuantumArchitectureSpecification and QuantumArchitecture models.
+  - IQMClient.about now reports IQM OS, IQM Server and Station Control versions instead of Python dist versions.
+  - Added IQMClient._debug_info for bug reports and support requests.
+- version: 33.0.0
+  date: '2025-11-19'
+  breaking: true
+  highlights:
+  - >-
+    IQMClient now connects to IQM Server rather than directly to the Station Control
+    service — the `url` parameter became `iqm_server_url`, with a new `quantum_computer`
+    parameter for multi-QPU servers.
+  - Removed per-method timeout_secs in favour of the IQM_CLIENT_REQUESTS_TIMEOUT env var.
+  - Circuit and job models moved to iqm.station_control.interface.models.
+- version: 32.1.0
+  date: '2025-10-13'
+  breaking: false
+- version: 32.0.0
+  date: '2025-10-09'
+  breaking: true
+- version: 31.0.0
+  date: '2025-09-11'
+  breaking: true
+- version: 30.0.0
+  date: '2025-08-20'
+  breaking: true

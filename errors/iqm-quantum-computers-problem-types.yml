@@ -1,0 +1,89 @@
+generated: '2026-08-23'
+method: derived
+source: >-
+  https://pypi.org/project/iqm-station-control-client/ —
+  src/iqm/station_control/interface/errors.py (Apache-2.0, iqm-station-control-client 13.0.1)
+format: iqm-server-error
+format_note: >-
+  NOT RFC 9457. IQM does not emit application/problem+json. It publishes its own error DTO,
+  IQMServerError, with three fields (message, error_code, source) and a documented,
+  exhaustive HTTP-status-to-exception mapping that the client uses to re-raise the correct
+  typed exception on the caller's side. The mapping below is transcribed verbatim from
+  _ERROR_TO_STATUS_CODE_MAPPING in the first-party library — it is the authoritative error
+  contract, even though no OpenAPI declares it.
+envelope:
+  observed_live: true
+  observed_at: https://resonance.iqm.tech/ (unauthenticated GET, 2026-08-23)
+  example_shape:
+    error_code: unauthorized
+    request_id: <uuid>
+    message: Missing or invalid authentication credentials
+  fields:
+  - {name: message, description: Human-readable description of the error}
+  - {name: error_code, description: Optional machine-readable identifier for programmatic error handling}
+  - {name: source, description: Originating component or service of the error}
+  - {name: request_id, description: Per-request UUID observed on the live gateway; use it when contacting support}
+problems:
+- status: 400
+  error_class: InvalidOperationError
+  title: Invalid operation
+  remediation: >-
+    The request is not valid for the current state of the resource. Do not retry unchanged.
+- status: 401
+  error_class: AuthenticationError
+  title: Authentication failed
+  remediation: >-
+    Set IQM_TOKEN to a valid Resonance API token, or regenerate one from the Resonance dashboard.
+- status: 403
+  error_class: ForbiddenError
+  title: Forbidden
+  remediation: >-
+    The token is valid but not entitled to this quantum computer or resource. Check plan entitlement.
+- status: 404
+  error_class: NotFoundError
+  title: Not found
+  remediation: >-
+    Verify the job id, calibration set id, or quantum computer name.
+- status: 409
+  error_class: ConflictError
+  title: Conflict
+  remediation: >-
+    The resource is in a state that conflicts with the request, for example cancelling an already-finished job.
+- status: 413
+  error_class: DataSizeError
+  title: Payload too large
+  remediation: >-
+    Reduce circuit batch size or sweep dimensions before resubmitting.
+- status: 422
+  error_class: ValidationError
+  title: Validation failed
+  remediation: >-
+    The circuit or run request failed server-side validation. UnknownSettingError inherits this class.
+- status: 429
+  error_class: RateLimitError
+  title: Rate limit exceeded
+  remediation: >-
+    Back off and retry. IQM publishes no numeric limit and no Retry-After contract - see rate-limits/.
+- status: 500
+  error_class: InternalSystemError
+  title: Internal system error
+  remediation: >-
+    Retry with backoff. This is also the fallback class for any unmapped status code.
+- status: 502
+  error_class: BadGatewayError
+  title: Bad gateway
+  remediation: >-
+    Transient upstream failure. Retry with backoff.
+- status: 503
+  error_class: SystemUnavailableError
+  title: System unavailable
+  remediation: >-
+    The quantum computer or control stack is unavailable. Poll quantum-computers/{name}/health.
+- status: 504
+  error_class: OperationTimeoutError
+  title: Operation timeout
+  remediation: >-
+    The operation exceeded the gateway timeout. Retry, or raise IQM_CLIENT_REQUESTS_TIMEOUT.
+coverage:
+  statuses_documented: 12
+  unmapped_fallback: InternalSystemError

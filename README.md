@@ -64,5 +64,43 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Iqm Quantum Computers is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/iqm-quantum-computers-stock
+IQM Quantum Computers (IQM Finland Oy) builds superconducting quantum computers in Espoo,
+Finland, and sells access to them both as on-premises systems and through **IQM Resonance**,
+its quantum cloud service.
+
+## The API surface
+
+The developer surface is a REST API at `https://resonance.iqm.tech/api/v1/`. It lists the
+quantum computers on a server, reports their health and calibration state, accepts circuit
+and sweep jobs, and returns measurements. Usage is billed in **QPU seconds** metered as
+credits — not in API calls. Authentication is a bearer API token generated once from the
+Resonance dashboard and supplied as `IQM_TOKEN`.
+
+- Website: <https://iqm.tech/>
+- Product: <https://iqm.tech/products/iqm-resonance/>
+- Docs: <https://docs.iqm.tech/iqm-client/>
+- Sign up (free Starter tier): <https://resonance.iqm.tech/sign-up>
+- Source: <https://github.com/iqm-finland>
+
+## What IQM publishes, and what it does not
+
+**Does publish.** 14 first-party **Protobuf** proto3 contracts defining the Station Control
+wire format, shipped Apache-2.0 in the `iqm-data-definitions` PyPI distribution and harvested
+verbatim to [`grpc/`](grpc/). A well-maintained Apache-2.0 Python client stack
+(`iqm-client` 35.0.1 and siblings, all released 2026-08-11). A dated changelog with an
+explicit *Breaking changes* section per release. A published error taxonomy mapping twelve
+HTTP status codes to named exception classes. A free tier with a stated monthly allowance.
+
+**Does not publish.** No OpenAPI, Swagger, GraphQL or AsyncAPI document exists on any IQM
+host — the operation surface recorded here is derived from IQM's own client library source,
+and no spec was authored on IQM's behalf. There is no MCP server, no A2A agent card, no
+`/.well-known/` document of any kind (including no `security.txt`), no status page, no SLA,
+no written deprecation policy, no idempotency key on job submission, and no published
+rate-limit numbers.
+
+## Two different companies named IQM
+
+This profile covers **IQM Quantum Computers** at `iqm.tech` (formerly `meetiqm.com`), GitHub
+org `iqm-finland`. It is **not** IQM Corporation at `iqm.com`, an unrelated programmatic
+advertising platform. The REST API documented at `developers.iqm.com` belongs to that other
+company and is deliberately excluded from this repository.

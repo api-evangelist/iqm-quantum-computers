@@ -1,0 +1,94 @@
+generated: '2026-08-23'
+method: derived
+status: candidate
+source: >-
+  https://pypi.org/project/iqm-client/ — src/iqm/iqm_server_client/iqm_server_client.py
+  (Apache-2.0, iqm-client 35.0.1)
+note: >-
+  IQM SHIPS NO MCP SERVER. Searched the docs, the iqm-finland GitHub org, PyPI and npm and
+  found nothing — the MCP servers that exist in this space are third-party research
+  artifacts (see arXiv 2604.08318) and IBM's Qiskit MCP servers, neither of which is IQM's.
+  The tools below are a CANDIDATE surface derived from the operations IQM's own client
+  library calls, offered as a starting point for whoever builds one. They are NOT a claim
+  that IQM exposes them to agents.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  auth_note: >-
+    Any future server would carry the Resonance API token (IQM_TOKEN) as a bearer credential
+    — there is no OAuth surface to delegate to.
+  verified: derived
+server:
+  name: iqm-resonance
+  transport: null
+  url: null
+backing_api:
+  base_url: https://resonance.iqm.tech
+  api_path: /api/v1/
+  contract: none-published
+  contract_note: >-
+    Because there is no OpenAPI, a real MCP server here could not inherit input schemas from
+    a spec — every tool would need a hand-written inputSchema. That gap is the finding.
+tools:
+- name: list_quantum_computers
+  description: List the quantum computers available on the connected IQM Server.
+  source_operation: GET quantum-computers
+  consequence: read
+- name: get_quantum_computer_health
+  description: Report whether a named quantum computer is currently operational.
+  source_operation: GET quantum-computers/{quantum_computer}/health
+  consequence: read
+- name: get_quantum_computer_about
+  description: Fetch the IQM OS, IQM Server and Station Control versions for a quantum computer.
+  source_operation: GET quantum-computers/{quantum_computer}/artifacts/about
+  consequence: read
+- name: get_dynamic_quantum_architecture
+  description: Fetch the gate set, qubit connectivity and native operations for a calibration set.
+  source_operation: GET calibration-sets/{quantum_computer}/{calibration_set_id}/dynamic-quantum-architecture
+  consequence: read
+- name: get_calibration_set
+  description: Fetch a calibration set for a quantum computer.
+  source_operation: GET calibration-sets/{quantum_computer}/{calibration_set_id}
+  consequence: read
+- name: get_quality_metrics
+  description: Fetch benchmarked quality metrics for a calibration set.
+  source_operation: GET calibration-sets/{quantum_computer}/{calibration_set_id}/metrics
+  consequence: read
+- name: submit_job
+  description: Submit a quantum circuit or sweep for execution on a quantum computer.
+  source_operation: POST jobs/{quantum_computer}/{job_type}
+  consequence: physical
+  consequence_note: >-
+    Billable and irreversible once dispatched — this operation spends QPU seconds against
+    the account's credits and drives real superconducting hardware. Any MCP exposure of it
+    should require human confirmation.
+- name: get_job
+  description: Fetch a job's status, queue position, progress and timeline.
+  source_operation: GET jobs/{job_id}
+  consequence: read
+- name: cancel_job
+  description: Cancel a submitted job.
+  source_operation: POST jobs/{job_id}/cancel
+  consequence: write
+- name: delete_job
+  description: Delete a job and its stored artifacts.
+  source_operation: DELETE jobs/{job_id}
+  consequence: write
+- name: get_job_measurements
+  description: Fetch raw measurement results for a completed job.
+  source_operation: GET jobs/{job_id}/artifacts/measurements
+  consequence: read
+- name: get_job_measurement_counts
+  description: Fetch aggregated measurement counts for a completed job.
+  source_operation: GET jobs/{job_id}/artifacts/measurement_counts
+  consequence: read
+- name: get_job_sweep_results
+  description: Fetch sweep results for a completed sweep job.
+  source_operation: GET jobs/{job_id}/artifacts/sweep_results
+  consequence: read
+coverage:
+  tools_derived: 13
+  tools_published_by_provider: 0

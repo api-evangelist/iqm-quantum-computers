@@ -1,23 +1,127 @@
 aid: iqm-quantum-computers
-name: Iqm Quantum Computers
-description: 'Iqm Quantum Computers is a company surfaced via the API Evangelist harvest backlog (source:
-  secondary-market) and added to the network as a stub for full-pipeline profiling.'
+name: IQM Quantum Computers
+description: >-
+  IQM Quantum Computers (IQM Finland Oy) builds superconducting quantum computers and sells
+  access to them, both as on-premises systems and as a cloud service. Its developer surface
+  is IQM Resonance, a quantum cloud platform at resonance.iqm.tech whose REST API accepts
+  circuits, queues them against a named QPU, and returns measurement results — billed in QPU
+  seconds rather than API calls. Access is through a bearer API token generated from the
+  Resonance dashboard, and the practical client contract is IQM's Apache-2.0 Python stack
+  (iqm-client, with Qiskit, Cirq and Qrisp adapters) rather than a published OpenAPI, which
+  IQM does not ship. IQM does publish 14 first-party Protobuf message contracts defining the
+  Station Control wire format, a dated changelog with explicit breaking-change notices, and
+  a free Starter tier with a monthly credit allowance.
+image: https://iqm.tech/wp-content/uploads/2025/02/IQM-Logo-black-transparent.png
 url: https://raw.githubusercontent.com/api-evangelist/iqm-quantum-computers/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-23'
 modified: '2026-08-23'
 tags:
-- Company
-apis: []
+- Quantum Computing
+- Quantum Cloud
+- High Performance Computing
+- Research
+- Scientific Computing
+- Developer Tools
+- Protobuf
+- Hardware
+- Finland
+- Deep Tech
+apis:
+- aid: iqm-quantum-computers-resonance
+  name: IQM Resonance API
+  description: >-
+    The REST API behind IQM Resonance, IQM's quantum cloud service. It lists the quantum
+    computers available on a server, reports their health and calibration state, accepts
+    circuit and sweep jobs for execution, and returns measurements, measurement counts and
+    sweep results. Requests are made to https://resonance.iqm.tech/api/v1/ with an IQM API
+    token in the Authorization header; job execution is asynchronous and discovered by
+    polling. No OpenAPI is published — the operation surface recorded in this repo is
+    derived from IQM's own Apache-2.0 iqm-client library.
+  humanURL: https://iqm.tech/products/iqm-resonance/
+  baseURL: https://resonance.iqm.tech/api/v1/
+  tags:
+  - Quantum Computing
+  - Quantum Cloud
+  - Jobs
+  - Calibration
+  properties:
+  - type: Documentation
+    url: https://docs.iqm.tech/iqm-client/
+  - type: GettingStarted
+    url: https://docs.iqm.tech/iqm-client/user_guide_qiskit.html
+  - type: Protobuf
+    url: grpc/iqm-quantum-computers-protobuf.yml
+  - type: MCPServer
+    url: mcp/iqm-quantum-computers-mcp.yml
+  - type: DataModel
+    url: data-model/iqm-quantum-computers-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/iqm-quantum-computers-domain-security.yml
 - type: Website
-  url: https://www.hiive.com/securities/iqm-quantum-computers-stock
+  url: https://iqm.tech/
+- type: DeveloperPortal
+  url: https://docs.iqm.tech/
+- type: Documentation
+  url: https://docs.iqm.tech/iqm-client/
+- type: APIReference
+  url: https://docs.iqm.tech/iqm-client/API.html
+- type: GettingStarted
+  url: https://docs.iqm.tech/iqm-client/user_guide_qiskit.html
+- type: SignUp
+  url: https://resonance.iqm.tech/sign-up
+- type: Pricing
+  url: https://iqm.tech/products/iqm-resonance/
+- type: PrivacyPolicy
+  url: https://iqm.tech/privacy-policy/
+- type: Support
+  url: https://iqm.tech/contact/
+- type: Blog
+  url: https://iqm.tech/blog/
+- type: GitHubOrganization
+  url: https://github.com/iqm-finland
+- type: Roadmap
+  url: https://iqm.tech/technology/roadmap/
+- type: Packages
+  url: packages/iqm-quantum-computers-packages.yml
+- type: SDKs
+  url: packages/iqm-quantum-computers-packages.yml
+- type: Protobuf
+  url: grpc/iqm-quantum-computers-protobuf.yml
+- type: Authentication
+  url: authentication/iqm-quantum-computers-authentication.yml
+- type: ErrorCatalog
+  url: errors/iqm-quantum-computers-problem-types.yml
+- type: Conventions
+  url: conventions/iqm-quantum-computers-conventions.yml
+- type: Lifecycle
+  url: lifecycle/iqm-quantum-computers-lifecycle.yml
+- type: ChangeLog
+  url: changelog/iqm-quantum-computers-changelog.yml
+- type: Conformance
+  url: conformance/iqm-quantum-computers-conformance.yml
+- type: DataModel
+  url: data-model/iqm-quantum-computers-data-model.yml
+- type: MCPServer
+  url: mcp/iqm-quantum-computers-mcp.yml
+- type: Sandbox
+  url: sandbox/iqm-quantum-computers-sandbox.yml
+- type: Plans
+  url: plans/iqm-quantum-computers-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/iqm-quantum-computers-rate-limits.yml
+- type: LLMsTxt
+  url: llms/iqm-quantum-computers-llms.txt
+x-enrichment:
+  date: '2026-08-23'
+  status: enriched
+  artifacts_added: 30
+  pass: local-v1

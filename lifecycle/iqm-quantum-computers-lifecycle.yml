@@ -1,0 +1,50 @@
+generated: '2026-08-23'
+method: searched
+source: https://docs.iqm.tech/iqm-client/changelog.html
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://docs.iqm.tech/iqm-client/
+  note: >-
+    The HTTP surface is pinned at /api/v1/. The consumer-visible version contract is the
+    semver of the iqm-client package, which is where IQM actually communicates change.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  practice: >-
+    NO WRITTEN DEPRECATION POLICY. IQM publishes no policy page, no notice period, and no
+    Sunset/Deprecation response headers. What it does do — consistently — is announce
+    removals in the "Breaking changes" section of the release they land in, which is
+    after-the-fact rather than ahead-of-time. Three IQM Server URL formats were removed
+    outright in 35.0.0 with no observed prior deprecation window. Packages are deprecated by
+    README notice: qiskit-iqm and cirq-iqm were folded into iqm-client extras, and the
+    iqm-cortex-cli PyPI page states the package is deprecated and its repository archived.
+  evidence:
+  - https://docs.iqm.tech/iqm-client/changelog.html
+  - https://pypi.org/project/iqm-cortex-cli/
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA. Uptime commitments appear only in the "Skip-the-queue" contact-sales tier.
+status_page:
+  url: null
+  published: false
+  probed:
+  - {url: 'https://status.iqm.tech/', result: NXDOMAIN}
+  - {url: 'https://status.resonance.iqm.tech/', result: NXDOMAIN}
+  note: >-
+    No status page found. Per-machine availability is exposed only INSIDE the authenticated
+    API as GET quantum-computers/{name}/health, which an unauthenticated consumer cannot
+    read. No StatusPage pointer is emitted.
+deprecated_operations: []
+retired_hosts:
+- {host: 'https://cocos.resonance.meetiqm.com', retired_in: iqm-client 35.0.0}
+- {host: 'https://resonance.meetiqm.com/<quantum-computer>', retired_in: iqm-client 35.0.0}
+- {host: 'https://meetiqm.com', note: '301s to https://iqm.tech — company-wide domain migration'}
+deprecated_packages:
+- {name: qiskit-iqm, superseded_by: 'iqm-client[qiskit]', last_release: '2025-09-16'}
+- {name: cirq-iqm, superseded_by: 'iqm-client[cirq]', last_release: '2025-04-02'}
+- {name: iqm-cortex-cli, superseded_by: none-currently-shipping, last_release: '2025-04-09'}

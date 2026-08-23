@@ -1,0 +1,119 @@
+generated: '2026-08-23'
+method: derived
+source: >-
+  https://pypi.org/project/iqm-client/ — src/iqm/iqm_server_client/iqm_server_client.py
+  (Apache-2.0, iqm-client 35.0.1); plus live unauthenticated probes of
+  https://resonance.iqm.tech on 2026-08-23
+docs: https://docs.iqm.tech/iqm-client/
+note: >-
+  IQM publishes no OpenAPI, so these cross-cutting semantics are reconstructed from its own
+  Apache-2.0 client library and from what the live gateway returns to an unauthenticated
+  caller. Everything below is traceable to one of those two; nothing is inferred from
+  marketing copy.
+base_url:
+  production: https://resonance.iqm.tech
+  api_path: /api/v1/
+  note: >-
+    Requests are built as {root_url}/api/{api_version}/{path}, with api_version pinned to
+    "v1" in iqm-client 35.0.1. A small number of calls bypass the version prefix - notably
+    GET /about - and the client models that as use_api=False.
+  legacy_hosts_retired:
+  - https://cocos.resonance.meetiqm.com
+  - https://resonance.meetiqm.com/<quantum-computer-name>
+authentication:
+  style: bearer-token
+  header: Authorization
+  detail: see authentication/iqm-quantum-computers-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  override: IQM_SERVER_API_VERSION is not exposed; api_version is a client property
+  package_versioning: >-
+    The practical version contract for consumers is the client package, not the URL. IQM
+    ships breaking changes as major bumps of iqm-client (35.0.0 removed three URL formats)
+    and documents them in a dated changelog.
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    NO IDEMPOTENCY CONTRACT. There is no Idempotency-Key header, no client-generated request
+    key, and no documented deduplication window anywhere in iqm-client 35.0.1 or the public
+    docs. Job submission (POST jobs/{quantum_computer}/{job_type}) is not safe to blindly
+    retry - a retried submission bills a second execution against the account's credits. The
+    only related defence is client-side: iqm-client blocks automatic redirects for mutating
+    requests so a 3xx cannot silently replay a POST. No Idempotency pointer is emitted.
+pagination:
+  supported: partial
+  style: unpaginated-collections
+  note: >-
+    The public job/quantum-computer endpoints return whole collections. The station-control
+    surface carries ListWithMetaResponse and *List models (ObservationDataList, RunLiteList,
+    TimelineEntryList and siblings) that wrap a meta block, but IQM publishes no page/cursor
+    parameter reference, so the parameters are not recorded here rather than guessed.
+request_tracing:
+  supported: true
+  field: request_id
+  location: error response body
+  note: >-
+    Observed live - every unauthenticated 401 from resonance.iqm.tech carries a distinct
+    request_id UUID in the JSON body. No request-id RESPONSE HEADER was observed on
+    anonymous traffic, so tracing is body-only as far as can be verified without a token.
+error_envelope:
+  format: iqm-server-error
+  fields: [message, error_code, source, request_id]
+  detail: see errors/iqm-quantum-computers-problem-types.yml
+rate_limit_signaling:
+  status_on_exhaustion: 429
+  error_class: RateLimitError
+  headers: []
+  note: >-
+    A 429 class exists in the published error mapping, but no X-RateLimit-*, RateLimit-* or
+    Retry-After header is documented or observable anonymously. See rate-limits/.
+content_negotiation:
+  request: [application/json, application/x-protobuf]
+  note: >-
+    The client sends either json_data or protobuf_data - explicitly mutually exclusive - so
+    the API accepts both a JSON body and the Protobuf payloads defined in grpc/.
+timeouts:
+  default_request_timeout_seconds: 120
+  env_var: IQM_CLIENT_REQUESTS_TIMEOUT
+  polling_interval_seconds: 1.0
+  polling_env_var: IQM_CLIENT_SECONDS_BETWEEN_CALLS
+  note: Job execution is asynchronous - submit, then poll GET jobs/{job_id} until terminal.
+reversibility:
+  grade: documented
+  applies: true
+  note: >-
+    The write surface is job submission, and it has a real reversal path - but IQM publishes
+    no window, so this grades `documented` rather than `verified`. NO WINDOW IS ASSERTED
+    HERE because none is stated anywhere public; inventing one could cost a user real
+    compute credits.
+  operations:
+  - write_operation: POST jobs/{quantum_computer}/{job_type}
+    description: Submit a circuit or sweep job for execution on a quantum computer.
+    reversal_operation: POST jobs/{job_id}/cancel
+    reversal_kind: cancel
+    window: null
+    window_note: >-
+      No published statement of how late a job may be cancelled. In practice a job that has
+      already been dispatched to the QPU cannot be recalled, and the client models a
+      terminal JobStatus, but IQM documents neither the boundary nor the billing
+      consequence of cancelling mid-execution.
+    source: src/iqm/iqm_server_client/iqm_server_client.py
+  - write_operation: POST jobs/{quantum_computer}/{job_type}
+    description: Submitted job and its stored artifacts.
+    reversal_operation: DELETE jobs/{job_id}
+    reversal_kind: delete
+    window: null
+    window_note: >-
+      No retention or undelete window is published. Deletion appears to be irreversible;
+      fetch GET jobs/{job_id}/artifacts/measurements first if the results are needed.
+    source: src/iqm/iqm_server_client/iqm_server_client.py
+dry_run_mode:
+  supported: true
+  kind: local-simulation
+  note: >-
+    Not a server-side dry run. IQM ships facade and fake backends in-package
+    (IQMFacadeBackend, fake_garnet, fake_deneb, fake_adonis, fake_apollo, fake_aphrodite)
+    that simulate execution locally with IQM-specific noise models, so a circuit can be
+    rehearsed without consuming credits. See sandbox/.

@@ -1,0 +1,53 @@
+generated: '2026-08-23'
+method: searched
+source: https://docs.iqm.tech/iqm-client/user_guide_qiskit.html
+note: >-
+  IQM ships no server-side sandbox and no test/live key separation — there is one token and
+  one production API. What it ships instead, and what genuinely serves the same purpose for
+  this domain, is LOCAL SIMULATION IN-PACKAGE: noise-modelled fake backends and a facade
+  backend that let a developer rehearse a circuit end to end without a token and without
+  spending credits. That is recorded here rather than forced into a payments-shaped
+  test-card schema. No test credentials of any kind are published, so none are invented.
+test_live_separation:
+  supported: false
+  key_prefixes: []
+  note: One production API token, generated from the Resonance dashboard. There is no test-mode key.
+hosted_sandbox:
+  available: false
+  note: No sandbox host. resonance.iqm.tech is production and returns 401 to anonymous callers.
+local_simulation:
+  available: true
+  requires_token: false
+  requires_network: false
+  install: pip install "iqm-client[qiskit]"
+  description: >-
+    Qiskit-compatible fake backends that simulate execution on a specific IQM architecture,
+    with IQM-specific noise models, entirely on the developer's machine.
+  backends:
+  - {name: fake_garnet, module: iqm.qiskit_iqm.fake_backends.fake_garnet}
+  - {name: fake_deneb, module: iqm.qiskit_iqm.fake_backends.fake_deneb}
+  - {name: fake_adonis, module: iqm.qiskit_iqm.fake_backends.fake_adonis}
+  - {name: fake_apollo, module: iqm.qiskit_iqm.fake_backends.fake_apollo}
+  - {name: fake_aphrodite, module: iqm.qiskit_iqm.fake_backends.fake_aphrodite}
+  base_class: iqm.qiskit_iqm.fake_backends.iqm_fake_backend
+  docs: https://docs.iqm.tech/iqm-client/user_guide_qiskit.html
+facade_backend:
+  available: true
+  class: iqm.qiskit_iqm.iqm_provider.IQMFacadeBackend
+  description: >-
+    Runs a circuit against a real IQM server's validation and calibration path while
+    substituting simulated execution — the closest thing IQM offers to a server-aware dry
+    run.
+  docs: https://docs.iqm.tech/iqm-client/user_guide_qiskit.html
+free_tier_as_sandbox:
+  available: true
+  plan: Starter
+  allowance: Up to 30 credits per month, based on availability
+  note: >-
+    The free Starter tier is the practical way to exercise the real API. It is a production
+    tier with a quota, not a sandbox — jobs run on real QPUs and consume real credits.
+  sign_up: https://resonance.iqm.tech/sign-up
+example_notebooks:
+- {name: resonance-example-notebooks, url: 'https://github.com/iqm-finland/resonance-example-notebooks', description: Quickstart notebooks for IQM Resonance}
+- {name: IQM Academy tutorials, url: 'https://www.iqmacademy.com/tutorials/resonance/', description: Public, runnable Resonance tutorials}
+test_values_published: false

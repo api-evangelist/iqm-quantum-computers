@@ -1,0 +1,104 @@
+generated: '2026-08-23'
+method: derived
+source: >-
+  grpc/iqm-quantum-computers-protobuf.yml; errors/iqm-quantum-computers-problem-types.yml;
+  authentication/iqm-quantum-computers-authentication.yml
+note: >-
+  Derived from the artifacts already harvested into this repo. IQM publishes no compliance
+  or certification program page — no trust center, no SOC 2 / ISO 27001 claim reachable from
+  iqm.tech — so NO Compliance pointer is emitted. Standards below are asserted only where an
+  artifact in this repo demonstrates them.
+standards:
+- id: protobuf3
+  conforms: true
+  evidence: >-
+    14 first-party proto3 contracts published in the iqm-data-definitions distribution and
+    harvested verbatim to grpc/. Every file declares syntax = "proto3".
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger document found on any IQM host after probing /openapi.json,
+    /openapi.yaml, /swagger.json, /api/openapi.json, /docs and /api/docs against
+    resonance.iqm.tech and docs.iqm.tech.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface published. Job completion is discovered by polling.
+- id: graphql
+  conforms: false
+  evidence: No /graphql surface found.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    Authentication is a long-lived bearer API token issued from the Resonance dashboard, not
+    an OAuth2 flow. No authorization or token endpoint is published;
+    /.well-known/oauth-authorization-server returns 401 on resonance.iqm.tech and 404
+    elsewhere.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on iqm.tech and docs.iqm.tech, 401 on resonance.iqm.tech.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use IQM's own IQMServerError envelope (message / error_code / source, plus a
+    request_id on the gateway), not application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 or 401 on every IQM host probed 2026-08-23.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header, and no deprecation policy page.
+- id: http-bearer-auth
+  conforms: true
+  evidence: Authorization header carries the IQM API token on every request (iqm-client 35.0.1).
+- id: semver
+  conforms: true
+  evidence: >-
+    All first-party PyPI distributions version semantically and reserve breaking changes for
+    major bumps, documented per release in a dated changelog.
+- id: apache-2.0-open-source
+  conforms: true
+  evidence: >-
+    The client stack (iqm-client, iqm-station-control-client, iqm-data-definitions,
+    iqm-benchmarks, kqcircuits) is published Apache-2.0 with source mirrored at
+    https://github.com/iqm-finland.
+- id: openqasm
+  conforms: true
+  evidence: >-
+    DOMAIN STANDARD. IQM ships an OpenQASM parser in-package
+    (iqm.cirq_iqm.extended_qasm_parser.circuit_from_qasm) and maintains a fork of the
+    openqasm specification repo in its GitHub org, so circuits authored against the
+    community quantum-assembly standard execute without a bespoke connector.
+- id: qir
+  conforms: true
+  evidence: >-
+    DOMAIN STANDARD. IQM maintains qiskit-qir (Qiskit to QIR translator) and a pyqir fork in
+    its GitHub org, targeting the Quantum Intermediate Representation used across the
+    quantum-HPC toolchain.
+- id: qiskit-provider-interface
+  conforms: true
+  evidence: >-
+    DOMAIN STANDARD. IQM implements the Qiskit BackendV2/Provider contract (IQMProvider,
+    IQMBackend, IQMBackendBase, IQMJob, IQMTarget) so any Qiskit program can target an IQM
+    QPU through the ecosystem-standard interface rather than an IQM-specific one.
+- id: cirq-sampler-interface
+  conforms: true
+  evidence: DOMAIN STANDARD. IQMSampler implements the Cirq sampler contract (iqm.cirq_iqm.iqm_sampler).
+- id: pytket-backend-interface
+  conforms: true
+  evidence: >-
+    DOMAIN STANDARD, THIRD-PARTY MAINTAINED. pytket-iqm exists on PyPI but is authored by
+    the Quantinuum TKET team (tket-support@quantinuum.com), not IQM — recorded as adoption
+    of the standard, not as an IQM-published artifact.
+- id: cuda-quantum
+  conforms: true
+  evidence: >-
+    DOMAIN STANDARD. IQM maintains a cuda-quantum fork in its GitHub org for
+    heterogeneous quantum-classical workflows, and lists CUDA Quantum as a supported
+    framework on the Resonance product page.
+- id: qdmi
+  conforms: true
+  evidence: >-
+    DOMAIN STANDARD. The QDMI-on-IQM repository in the IQM GitHub org implements the Quantum
+    Device Management Interface against IQM hardware.
+certifications: []
+compliance_program_published: false

@@ -1,0 +1,61 @@
+generated: '2026-08-23'
+method: searched
+source: https://pypi.org/project/iqm-data-definitions/
+name: IQM Station Control Data Definitions (Protobuf)
+description: >-
+  Protobuf 3 message contracts that define the wire format for client-server communication
+  between IQM Station Control and its clients (iqm-client, iqm-station-control-client,
+  iqm-pulla). Published first-party by IQM Finland Oy in the `iqm-data-definitions`
+  distribution on PyPI under Apache-2.0, and harvested verbatim from the source
+  distribution's `protos/` tree.
+ownership:
+  verified: true
+  note: >-
+    Copyright header on every file reads "Copyright 2019-2025 IQM"; the distribution is
+    published by "IQM Finland Oy <developers@iqm.tech>" and documented at
+    https://docs.iqm.tech/iqm-data-definitions/. The unrelated advertising company at
+    iqm.com is NOT the publisher of these files.
+package_version: '3.0'
+package_published: '2026-08-04'
+syntax: proto3
+packages:
+- iqm.data_definitions.common.v1
+- iqm.data_definitions.station_control.v1
+- iqm.data_definitions.station_control.v2
+services: []
+services_note: >-
+  These are message-only contracts (no `service`/`rpc` blocks). They define the request and
+  response payload schemas exchanged over the Station Control HTTP API — for example
+  SweepResultsResponse is documented in-file as the body for `GET /sweeps/{uuid}/results`.
+  Recorded honestly: this is a Protobuf schema contract, not a gRPC service definition.
+files:
+- file: iqm-quantum-computers-common-v1-channel_properties.proto
+  source_path: protos/iqm/data_definitions/common/v1/channel_properties.proto
+- file: iqm-quantum-computers-common-v1-data_types.proto
+  source_path: protos/iqm/data_definitions/common/v1/data_types.proto
+- file: iqm-quantum-computers-common-v1-observation.proto
+  source_path: protos/iqm/data_definitions/common/v1/observation.proto
+- file: iqm-quantum-computers-common-v1-parameter.proto
+  source_path: protos/iqm/data_definitions/common/v1/parameter.proto
+- file: iqm-quantum-computers-common-v1-playlist.proto
+  source_path: protos/iqm/data_definitions/common/v1/playlist.proto
+- file: iqm-quantum-computers-common-v1-setting.proto
+  source_path: protos/iqm/data_definitions/common/v1/setting.proto
+- file: iqm-quantum-computers-common-v1-spot_result.proto
+  source_path: protos/iqm/data_definitions/common/v1/spot_result.proto
+- file: iqm-quantum-computers-common-v1-struct.proto
+  source_path: protos/iqm/data_definitions/common/v1/struct.proto
+- file: iqm-quantum-computers-common-v1-sweep.proto
+  source_path: protos/iqm/data_definitions/common/v1/sweep.proto
+- file: iqm-quantum-computers-station_control-v1-run_definition.proto
+  source_path: protos/iqm/data_definitions/station_control/v1/run_definition.proto
+- file: iqm-quantum-computers-station_control-v1-sweep_request.proto
+  source_path: protos/iqm/data_definitions/station_control/v1/sweep_request.proto
+- file: iqm-quantum-computers-station_control-v1-task_service.proto
+  source_path: protos/iqm/data_definitions/station_control/v1/task_service.proto
+- file: iqm-quantum-computers-station_control-v2-run_definition.proto
+  source_path: protos/iqm/data_definitions/station_control/v2/run_definition.proto
+- file: iqm-quantum-computers-station_control-v2-task_service.proto
+  source_path: protos/iqm/data_definitions/station_control/v2/task_service.proto
+license: Apache-2.0
+docs: https://docs.iqm.tech/iqm-data-definitions/

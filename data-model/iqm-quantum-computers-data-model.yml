@@ -1,0 +1,98 @@
+generated: '2026-08-23'
+method: derived
+source: >-
+  https://pypi.org/project/iqm-client/ — src/iqm/iqm_server_client/models.py and
+  src/iqm/iqm_server_client/iqm_server_client.py (Apache-2.0, iqm-client 35.0.1)
+note: >-
+  Derived from IQM's own Pydantic response models, which are the closest thing to a schema
+  IQM publishes. Field names and types are transcribed from the library, not inferred. There
+  is no OpenAPI components/schemas block to read; this is the substitute, and it is labelled
+  as such.
+id_scheme: UUID (job ids, quantum computer ids, calibration set ids)
+entities:
+- name: QuantumComputer
+  description: A physical QPU reachable through an IQM Server instance.
+  fields:
+  - {name: id, type: UUID}
+  - {name: alias, type: string, note: The name used in URL paths, e.g. the quantum_computer parameter}
+  - {name: display_name, type: string}
+  operations:
+  - GET quantum-computers
+  - GET quantum-computers/{alias}/health
+  - GET quantum-computers/{alias}/artifacts/about
+  - GET quantum-computers/{alias}/artifacts/duts
+- name: Job
+  model: JobData
+  description: One submitted circuit or sweep execution.
+  fields:
+  - {name: id, type: UUID}
+  - {name: status, type: JobStatus}
+  - {name: execution, type: JobExecution, nullable: true}
+  - {name: compilation, type: JobCompilation, nullable: true}
+  - {name: messages, type: "list[JobMessage]"}
+  - {name: errors, type: "list[IQMServerError]"}
+  - {name: queue_position, type: integer, nullable: true}
+  - {name: timeline, type: "list[TimelineEntry]"}
+  operations:
+  - POST jobs/{quantum_computer}/{job_type}
+  - GET jobs/{job_id}
+  - POST jobs/{job_id}/cancel
+  - DELETE jobs/{job_id}
+  - GET jobs/{job_id}/payload
+  - GET jobs/{job_id}/artifacts/sweep_results
+  - GET jobs/{job_id}/artifacts/measurements
+  - GET jobs/{job_id}/artifacts/measurement_counts
+- name: JobStatus
+  kind: enum
+  values: [waiting, processing, completed, failed, cancelled]
+  terminal_values: [completed, failed, cancelled]
+  note: >-
+    A published terminal-state set is unusually useful for an agent — it tells a poller
+    exactly when to stop, without heuristics.
+- name: JobExecution
+  fields:
+  - {name: progress, type: "dict[str, ProgressInfo]"}
+- name: ProgressInfo
+  fields:
+  - {name: value, type: integer}
+  - {name: max_value, type: integer}
+- name: JobCompilation
+  fields:
+  - {name: calibration_set_id, type: UUID, nullable: true}
+- name: JobMessage
+  fields:
+  - {name: source, type: Source}
+  - {name: message, type: string}
+- name: TimelineEntry
+  fields:
+  - {name: source, type: Source}
+  - {name: status, type: string}
+  - {name: timestamp, type: datetime}
+- name: CalibrationSet
+  description: A dated set of calibration observations for one quantum computer.
+  operations:
+  - GET calibration-sets/{quantum_computer}/{calibration_set_id}
+  - GET calibration-sets/{quantum_computer}/{calibration_set_id}/dynamic-quantum-architecture
+  - GET calibration-sets/{quantum_computer}/{calibration_set_id}/metrics
+- name: IQMServerError
+  description: Error DTO carried in JobData.errors and in every error response body.
+  fields:
+  - {name: message, type: string}
+  - {name: error_code, type: string, nullable: true}
+  - {name: source, type: Source}
+  detail: see errors/iqm-quantum-computers-problem-types.yml
+relationships:
+- {from: ListQuantumComputersResponse, to: QuantumComputer, kind: has_many, via: quantum_computers}
+- {from: Job, to: QuantumComputer, kind: belongs_to, via: path parameter quantum_computer}
+- {from: Job, to: JobExecution, kind: has_one, via: execution}
+- {from: Job, to: JobCompilation, kind: has_one, via: compilation}
+- {from: Job, to: JobMessage, kind: has_many, via: messages}
+- {from: Job, to: IQMServerError, kind: has_many, via: errors}
+- {from: Job, to: TimelineEntry, kind: has_many, via: timeline}
+- {from: JobExecution, to: ProgressInfo, kind: has_many, via: progress}
+- {from: JobCompilation, to: CalibrationSet, kind: belongs_to, via: calibration_set_id}
+- {from: CalibrationSet, to: QuantumComputer, kind: belongs_to, via: path parameter quantum_computer}
+wire_formats:
+  json: true
+  protobuf: true
+  protobuf_contracts: grpc/iqm-quantum-computers-protobuf.yml

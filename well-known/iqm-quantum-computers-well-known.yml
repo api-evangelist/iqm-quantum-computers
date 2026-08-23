@@ -1,0 +1,58 @@
+generated: '2026-08-23'
+method: probed
+source: live probe of every IQM-controlled host on 2026-08-23
+hit_count: 0
+note: >-
+  Every /.well-known/ path was probed on every host IQM controls and NOT ONE returned a
+  document. Three distinct failure shapes were observed and are recorded separately because
+  they mean different things: iqm.tech (WordPress) and docs.iqm.tech (GitHub Pages) return a
+  genuine 404 HTML error page; resonance.iqm.tech answers every path with an authenticated
+  401 JSON envelope, so a document could in principle exist behind the gate but cannot be
+  read anonymously; support.iqm.tech is behind a Cloudflare 403 bot challenge. No 200 was
+  seen anywhere, so NO WellKnown and NO SecurityTxt pointer is emitted — this file records a
+  measured absence, not a served surface.
+hosts:
+- host: https://iqm.tech
+  server: WordPress
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://docs.iqm.tech
+  server: GitHub Pages
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://resonance.iqm.tech
+  server: IQM Resonance API gateway
+  gated: true
+  documents:
+  - {path: /.well-known/security.txt, status: 401}
+  - {path: /.well-known/openid-configuration, status: 401}
+  - {path: /.well-known/oauth-authorization-server, status: 401}
+  - {path: /.well-known/oauth-protected-resource, status: 401}
+  - {path: /.well-known/api-catalog, status: 401}
+  - {path: /.well-known/ai-plugin.json, status: 401}
+  - {path: /.well-known/agent-card.json, status: 401}
+  - {path: /.well-known/agent.json, status: 401}
+- host: https://support.iqm.tech
+  server: Cloudflare-fronted support portal
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+hosts_not_resolving:
+- api.resonance.iqm.tech
+- cocos.resonance.iqm.tech
+- status.iqm.tech
+- status.resonance.iqm.tech

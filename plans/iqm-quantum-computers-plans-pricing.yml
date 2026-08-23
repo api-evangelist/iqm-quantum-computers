@@ -1,0 +1,73 @@
+generated: '2026-08-23'
+method: searched
+source: https://iqm.tech/products/iqm-resonance/
+note: >-
+  IQM has no dedicated /pricing page — https://iqm.tech/pricing/ returns 404. The plan table
+  lives on the IQM Resonance product page and is transcribed verbatim below. The billing
+  unit is unusual and worth naming plainly: IQM sells QPU SECONDS, metered as credits, not
+  API calls or requests.
+plan_count: 3
+currency: USD
+billing_unit: QPU seconds, metered as credits
+credits_expire: false
+plans:
+- name: Starter
+  price: 0
+  price_display: Free
+  billing_period: monthly
+  summary: Experience what IQM's cloud computers have to offer, for free.
+  included_quota: Up to 30 credits per month, based on availability
+  quota_note: >-
+    The page states the Starter allowance two ways in two renderings of the same table —
+    "up to 30 credits / month" and "up to 1h" of access to the latest QPUs. Both are
+    recorded because both are published; IQM does not reconcile them.
+  overage: null
+  features:
+  - Access to our latest QPUs (up to 30 credits / month)
+  - Access to IQM Academy training materials
+  - Technical support
+  features_excluded:
+  - Access to experimental QPUs for research purposes
+  - Guaranteed exclusive access during reserved timeslots
+  - Pulse-level access
+  - Early access to new features
+- name: Pay-as-you-go
+  price: 0.30
+  price_display: starting at $0.30/sec
+  price_unit: per QPU second
+  billing_period: usage-based
+  summary: >-
+    Load up credits that don't expire. Pay only for what you use. Run your quantum cloud job
+    in a first-come, first-served queue.
+  included_quota: null
+  queue: first-come, first-served
+  overage: N/A — prepaid credits, billed in QPU seconds
+  features:
+  - Access to our latest QPUs (billed in QPU seconds)
+  - Access to IQM Academy training materials
+  - Technical support
+- name: Skip-the-queue
+  price: null
+  price_display: Contact us
+  billing_period: contract
+  summary: >-
+    Load up credits that don't expire. Pay-as-you-go and timeslot usage. Ideal for usage
+    that requires consistent, uninterrupted access.
+  included_quota: null
+  features:
+  - Access to our latest QPUs (billed in QPU seconds)
+  - Access to experimental QPUs for research purposes
+  - Access to IQM Academy training materials
+  - Technical support
+  - Guaranteed exclusive access during reserved timeslots
+  - Pulse-level access
+  - Early access to new features
+sign_up: https://resonance.iqm.tech/sign-up
+self_service: true
+self_service_note: >-
+  The free Starter tier is genuinely self-service — sign up, generate an API token from the
+  dashboard, and call the API. Only the top tier is sales-gated.
+quantum_computers_offered:
+- {name: IQM Crystal 54, qubits: 54, topology: square lattice with tunable couplers, two_qubit_fidelity: up to 99.85%}
+- {name: IQM Crystal 20, qubits: 20, topology: square lattice with tunable couplers, two_qubit_fidelity: 99.8%}
+- {name: IQM Star 24, qubits: 24, topology: central resonator hub / global connectivity, status: beta}

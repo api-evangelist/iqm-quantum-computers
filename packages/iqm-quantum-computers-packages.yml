@@ -1,0 +1,137 @@
+generated: '2026-08-23'
+method: searched
+source: https://pypi.org/user/iqm/
+note: >-
+  Registry metadata read live from pypi.org/pypi/<name>/json on 2026-08-23. IQM publishes
+  Python only — no npm, Maven Central, NuGet, RubyGems, crates.io, Packagist or Go module
+  distribution was found for the quantum-computing product line. Every package below is
+  authored by "IQM Finland Oy" per its PyPI author_email field, which is how first-party
+  status was established.
+registries_checked:
+- {registry: pypi, result: hit}
+- {registry: npm, result: none}
+- {registry: maven-central, result: none}
+- {registry: nuget, result: none}
+- {registry: rubygems, result: none}
+- {registry: crates.io, result: none}
+- {registry: packagist, result: none}
+- {registry: pkg.go.dev, result: none}
+packages:
+- language: python
+  registry: pypi
+  name: iqm-client
+  url: https://pypi.org/project/iqm-client/
+  install: pip install "iqm-client[qiskit]"
+  official: true
+  version: 35.0.1
+  published: '2026-08-11'
+  docs: https://docs.iqm.tech/iqm-client/
+  note: >-
+    The primary client library for the IQM Server / IQM Resonance REST API. Since v35 it
+    also vendors the Qiskit, Cirq and Qrisp adapters as extras, superseding the standalone
+    qiskit-iqm and cirq-iqm packages.
+- language: python
+  registry: pypi
+  name: iqm-station-control-client
+  url: https://pypi.org/project/iqm-station-control-client/
+  install: pip install iqm-station-control-client
+  official: true
+  version: 13.0.1
+  published: '2026-08-11'
+  docs: https://docs.iqm.tech/iqm-station-control-client/
+- language: python
+  registry: pypi
+  name: iqm-data-definitions
+  url: https://pypi.org/project/iqm-data-definitions/
+  install: pip install iqm-data-definitions
+  official: true
+  version: '3.0'
+  published: '2026-08-04'
+  docs: https://docs.iqm.tech/iqm-data-definitions/
+  note: Ships the 14 Protobuf contracts harvested to grpc/ in this repo.
+- language: python
+  registry: pypi
+  name: iqm-pulla
+  url: https://pypi.org/project/iqm-pulla/
+  install: pip install iqm-pulla
+  official: true
+  version: 14.0.1
+  published: '2026-08-11'
+  docs: https://docs.iqm.tech/iqm-pulla/
+  note: Pulse-level access client.
+- language: python
+  registry: pypi
+  name: iqm-pulse
+  url: https://pypi.org/project/iqm-pulse/
+  install: pip install iqm-pulse
+  official: true
+  version: 14.0.1
+  published: '2026-08-11'
+  docs: https://docs.iqm.tech/iqm-pulse/
+- language: python
+  registry: pypi
+  name: iqm-exa-common
+  url: https://pypi.org/project/iqm-exa-common/
+  install: pip install iqm-exa-common
+  official: true
+  version: 28.0.1
+  published: '2026-08-11'
+- language: python
+  registry: pypi
+  name: iqm-benchmarks
+  url: https://pypi.org/project/iqm-benchmarks/
+  install: pip install iqm-benchmarks
+  official: true
+  version: 2.60.1
+  published: '2026-08-11'
+  docs: https://docs.iqm.tech/iqm-benchmarks/
+  note: QCVV characterization and benchmarking suite.
+- language: python
+  registry: pypi
+  name: kqcircuits
+  url: https://pypi.org/project/kqcircuits/
+  install: pip install kqcircuits
+  official: true
+  version: 4.9.11
+  published: '2026-05-21'
+  note: KLayout library for superconducting quantum circuit design (chip design, not API access).
+- language: python
+  registry: pypi
+  name: qiskit-iqm
+  url: https://pypi.org/project/qiskit-iqm/
+  install: pip install qiskit-iqm
+  official: true
+  version: '18.2'
+  published: '2025-09-16'
+  status: deprecated
+  note: >-
+    DECAY SIGNAL — superseded by the `iqm-client[qiskit]` extra. Last release 2025-09-16,
+    eleven months behind iqm-client 35.0.1. IQM's own README instructs users to uninstall it.
+- language: python
+  registry: pypi
+  name: cirq-iqm
+  url: https://pypi.org/project/cirq-iqm/
+  install: pip install cirq-iqm
+  official: true
+  version: '17.0'
+  published: '2025-04-02'
+  status: deprecated
+  note: >-
+    DECAY SIGNAL — superseded by the `iqm-client[cirq]` extra. Last release 2025-04-02.
+- language: python
+  registry: pypi
+  name: iqm-cortex-cli
+  url: https://pypi.org/project/iqm-cortex-cli/
+  install: pip install iqm-cortex-cli
+  official: true
+  version: '6.1'
+  published: '2025-04-09'
+  status: deprecated
+  note: >-
+    The former first-party CLI (auth/token management). The package description states it is
+    deprecated and the GitHub repository archived, with the successor "IQM Client CLI" to
+    ship inside iqm-client. As of iqm-client 35.0.1 no `cli` extra and no console_scripts
+    entry point exist in pyproject.toml, and the successor guide at
+    https://docs.iqm.tech/iqm-client/user_guide_cli.html returns 404 — so there is currently
+    no maintained IQM CLI. No CLI pointer is emitted for that reason.
+source_code: https://github.com/iqm-finland

@@ -1,0 +1,21 @@
+generated: '2026-08-23'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: iqm.tech
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 10:27:12 2026 GMT
+  hsts: false
+- host: resonance.iqm.tech
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 11:41:09 2026 GMT
+  hsts: null
+domains:
+- domain: iqm.tech
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none

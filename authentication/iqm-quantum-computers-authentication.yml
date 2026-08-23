@@ -1,0 +1,55 @@
+generated: '2026-08-23'
+method: searched
+source: openapi/ (none published)
+docs: https://docs.iqm.tech/iqm-client/user_guide_qiskit.html#authentication
+note: >-
+  DERIVED FROM FIRST-PARTY SOURCE, NOT FROM AN OPENAPI. IQM publishes no OpenAPI/Swagger
+  document, so this profile is reconstructed from two public first-party sources: the
+  authentication section of IQM's own Qiskit-on-IQM user guide, and the Apache-2.0
+  `iqm-client` 35.0.1 source distribution on PyPI
+  (src/iqm/iqm_server_client/iqm_server_client.py). It is NOT a transcription of a provider
+  securityScheme block, and it is not represented as one.
+summary:
+  types: [http]
+  http_schemes: [bearer]
+  api_key_in: [header]
+  oauth2_flows: []
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+schemes:
+- name: IQMToken
+  type: http
+  scheme: bearer
+  in: header
+  parameter_name: Authorization
+  description: >-
+    A long-lived, non-recoverable IQM Resonance API token generated once from the Resonance
+    web dashboard ("Generate token"). It is sent on every request as an Authorization
+    header. Regenerating the token immediately invalidates the previous one; IQM warns the
+    value cannot be retrieved again after the dialog is closed.
+  provisioning:
+    surface: https://resonance.iqm.tech
+    steps:
+    - Sign in to the IQM Resonance dashboard
+    - Select "Generate token" on the Dashboard page
+    - Copy the token before closing the window (it is not recoverable)
+    self_service: true
+    docs: https://docs.iqm.tech/iqm-client/user_guide_qiskit.html#authentication
+  credential_delivery:
+  - {mechanism: environment variable, name: IQM_TOKEN}
+  - {mechanism: constructor parameter, name: token, on: IQMProvider / IQMClient}
+  - {mechanism: tokens file, name: IQM_TOKENS_FILE, note: "Path to a tokens file; legacy Cortex CLI flow"}
+  sources: [https://pypi.org/project/iqm-client/, https://docs.iqm.tech/iqm-client/user_guide_qiskit.html]
+transport_security:
+  https_required: true
+  note: >-
+    iqm-client 35.0.0 made this enforceable client-side: the client raises on plain-HTTP
+    requests to remote hosts, strips the Authorization header if an insecure remote call is
+    attempted anyway, and blocks automatic redirects for mutating requests. Recorded because
+    it is an unusually explicit credential-leak defence for a client library.
+  evidence: https://docs.iqm.tech/iqm-client/changelog.html
+gated_surfaces:
+- url: https://resonance.iqm.tech/
+  status: 401
+  note: Every unauthenticated path returns {"error_code":"unauthorized","request_id":...,"message":...}
