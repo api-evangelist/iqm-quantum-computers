@@ -11,6 +11,17 @@ description: >-
   IQM does not ship. IQM does publish 14 first-party Protobuf message contracts defining the
   Station Control wire format, a dated changelog with explicit breaking-change notices, and
   a free Starter tier with a monthly credit allowance.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://iqm.tech/wp-content/uploads/2025/02/IQM-Logo-black-transparent.png
 url: https://raw.githubusercontent.com/api-evangelist/iqm-quantum-computers/refs/heads/main/apis.yml
 x-type: company
