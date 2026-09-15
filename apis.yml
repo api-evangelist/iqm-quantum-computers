@@ -1,16 +1,14 @@
 aid: iqm-quantum-computers
 name: IQM Quantum Computers
-description: >-
-  IQM Quantum Computers (IQM Finland Oy) builds superconducting quantum computers and sells
-  access to them, both as on-premises systems and as a cloud service. Its developer surface
-  is IQM Resonance, a quantum cloud platform at resonance.iqm.tech whose REST API accepts
-  circuits, queues them against a named QPU, and returns measurement results — billed in QPU
-  seconds rather than API calls. Access is through a bearer API token generated from the
-  Resonance dashboard, and the practical client contract is IQM's Apache-2.0 Python stack
-  (iqm-client, with Qiskit, Cirq and Qrisp adapters) rather than a published OpenAPI, which
-  IQM does not ship. IQM does publish 14 first-party Protobuf message contracts defining the
-  Station Control wire format, a dated changelog with explicit breaking-change notices, and
-  a free Starter tier with a monthly credit allowance.
+description: IQM Quantum Computers (IQM Finland Oy) builds superconducting quantum computers and sells
+  access to them, both as on-premises systems and as a cloud service. Its developer surface is IQM Resonance,
+  a quantum cloud platform at resonance.iqm.tech whose REST API accepts circuits, queues them against
+  a named QPU, and returns measurement results — billed in QPU seconds rather than API calls. Access is
+  through a bearer API token generated from the Resonance dashboard, and the practical client contract
+  is IQM's Apache-2.0 Python stack (iqm-client, with Qiskit, Cirq and Qrisp adapters) rather than a published
+  OpenAPI, which IQM does not ship. IQM does publish 14 first-party Protobuf message contracts defining
+  the Station Control wire format, a dated changelog with explicit breaking-change notices, and a free
+  Starter tier with a monthly credit allowance.
 deliveryModel:
   model: saas
   open_source: false
@@ -57,16 +55,14 @@ tags:
 - Finland
 - Deep Tech
 apis:
-- aid: iqm-quantum-computers-resonance
+- aid: iqm-quantum-computers:iqm-quantum-computers-resonance
   name: IQM Resonance API
-  description: >-
-    The REST API behind IQM Resonance, IQM's quantum cloud service. It lists the quantum
-    computers available on a server, reports their health and calibration state, accepts
-    circuit and sweep jobs for execution, and returns measurements, measurement counts and
-    sweep results. Requests are made to https://resonance.iqm.tech/api/v1/ with an IQM API
-    token in the Authorization header; job execution is asynchronous and discovered by
-    polling. No OpenAPI is published — the operation surface recorded in this repo is
-    derived from IQM's own Apache-2.0 iqm-client library.
+  description: The REST API behind IQM Resonance, IQM's quantum cloud service. It lists the quantum computers
+    available on a server, reports their health and calibration state, accepts circuit and sweep jobs
+    for execution, and returns measurements, measurement counts and sweep results. Requests are made to
+    https://resonance.iqm.tech/api/v1/ with an IQM API token in the Authorization header; job execution
+    is asynchronous and discovered by polling. No OpenAPI is published — the operation surface recorded
+    in this repo is derived from IQM's own Apache-2.0 iqm-client library.
   humanURL: https://iqm.tech/products/iqm-resonance/
   baseURL: https://resonance.iqm.tech/api/v1/
   tags:
@@ -88,7 +84,10 @@ apis:
     url: grpc/iqm-quantum-computers-protobuf.yml
   - type: X-MCPServerCandidate
     url: mcp/iqm-quantum-computers-mcp.yml
-    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+      — a tool list derived from the published API contracts, not an existing server. The scorer already
+      read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+      surfaces with a server that does not exist.'
   - type: DataModel
     url: data-model/iqm-quantum-computers-data-model.yml
 maintainers:
@@ -145,7 +144,10 @@ common:
   url: data-model/iqm-quantum-computers-data-model.yml
 - type: X-MCPServerCandidate
   url: mcp/iqm-quantum-computers-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+    — a tool list derived from the published API contracts, not an existing server. The scorer already
+    read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+    surfaces with a server that does not exist.'
 - type: Sandbox
   url: sandbox/iqm-quantum-computers-sandbox.yml
 - type: Plans
