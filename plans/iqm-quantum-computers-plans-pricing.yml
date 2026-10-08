@@ -71,3 +71,30 @@ quantum_computers_offered:
 - {name: IQM Crystal 54, qubits: 54, topology: square lattice with tunable couplers, two_qubit_fidelity: up to 99.85%}
 - {name: IQM Crystal 20, qubits: 20, topology: square lattice with tunable couplers, two_qubit_fidelity: 99.8%}
 - {name: IQM Star 24, qubits: 24, topology: central resonator hub / global connectivity, status: beta}
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - hybrid
+  - negotiated
+  units: []
+  plans:
+  - name: Starter
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pay-as-you-go
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods: []
+  - name: Skip-the-queue
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
