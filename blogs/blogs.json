@@ -2,11 +2,11 @@
   "repo": "iqm-quantum-computers",
   "feeds": [
     {
-      "source": "https://iqm.tech/contact/",
-      "feed_url": "https://iqm.tech/feed/",
+      "source": "https://iqm.tech/blog/",
+      "feed_url": "https://iqm.tech/blog/",
       "title": "",
       "saved": 0,
-      "method": "discovered"
+      "method": "none"
     },
     {
       "source": "https://iqm.tech/feed/",
@@ -17,5 +17,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-10-03T12:30:02Z"
+  "fetched": "2026-10-10T13:15:00Z"
 }
