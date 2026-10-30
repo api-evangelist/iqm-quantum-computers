@@ -1,4 +1,4 @@
-# Iqm Quantum Computers
+# IQM Quantum Computers
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,43 +64,113 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-IQM Quantum Computers (IQM Finland Oy) builds superconducting quantum computers in Espoo,
-Finland, and sells access to them both as on-premises systems and through **IQM Resonance**,
-its quantum cloud service.
+IQM Quantum Computers (IQM Finland Oy) builds superconducting quantum computers and sells access to them, both as on-premises systems and as a cloud service. Its developer surface is IQM Resonance, a quantum cloud platform at resonance.iqm.tech whose REST API accepts circuits, queues them against a named QPU, and returns measurement results — billed in QPU seconds rather than API calls. Access is through a bearer API token generated from the Resonance dashboard, and the practical client contract is IQM's Apache-2.0 Python stack (iqm-client, with Qiskit, Cirq and Qrisp adapters) rather than a published OpenAPI, which IQM does not ship. IQM does publish 14 first-party Protobuf message contracts defining the Station Control wire format, a dated changelog with explicit breaking-change notices, and a free Starter tier with a monthly credit allowance.
 
-## The API surface
+**Areas:** Quantum Computing · Quantum Cloud · High Performance Computing · Research · Scientific Computing · Developer Tools · Protobuf · Hardware · Finland · Deep Tech
 
-The developer surface is a REST API at `https://resonance.iqm.tech/api/v1/`. It lists the
-quantum computers on a server, reports their health and calibration state, accepts circuit
-and sweep jobs, and returns measurements. Usage is billed in **QPU seconds** metered as
-credits — not in API calls. Authentication is a bearer API token generated once from the
-Resonance dashboard and supplied as `IQM_TOKEN`.
+## IQM Quantum Computers on APIs.io
 
-- Website: <https://iqm.tech/>
-- Product: <https://iqm.tech/products/iqm-resonance/>
-- Docs: <https://docs.iqm.tech/iqm-client/>
-- Sign up (free Starter tier): <https://resonance.iqm.tech/sign-up>
-- Source: <https://github.com/iqm-finland>
+Everything profiled for IQM Quantum Computers is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/iqm-quantum-computers/](https://apis.io/providers/iqm-quantum-computers/)** — or go straight to one of the APIs or properties below.
 
-## What IQM publishes, and what it does not
+### APIs (1)
 
-**Does publish.** 14 first-party **Protobuf** proto3 contracts defining the Station Control
-wire format, shipped Apache-2.0 in the `iqm-data-definitions` PyPI distribution and harvested
-verbatim to [`grpc/`](grpc/). A well-maintained Apache-2.0 Python client stack
-(`iqm-client` 35.0.1 and siblings, all released 2026-08-11). A dated changelog with an
-explicit *Breaking changes* section per release. A published error taxonomy mapping twelve
-HTTP status codes to named exception classes. A free tier with a stated monthly allowance.
+- [IQM Resonance API](https://apis.io/apis/iqm-quantum-computers/iqm-quantum-computers-resonance/) — The REST API behind IQM Resonance, IQM's quantum cloud service. It lists the quantum computers available on a server, reports their health and calibration…
 
-**Does not publish.** No OpenAPI, Swagger, GraphQL or AsyncAPI document exists on any IQM
-host — the operation surface recorded here is derived from IQM's own client library source,
-and no spec was authored on IQM's behalf. There is no MCP server, no A2A agent card, no
-`/.well-known/` document of any kind (including no `security.txt`), no status page, no SLA,
-no written deprecation policy, no idempotency key on job submission, and no published
-rate-limit numbers.
+### Published properties
 
-## Two different companies named IQM
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-This profile covers **IQM Quantum Computers** at `iqm.tech` (formerly `meetiqm.com`), GitHub
-org `iqm-finland`. It is **not** IQM Corporation at `iqm.com`, an unrelated programmatic
-advertising platform. The REST API documented at `developers.iqm.com` belongs to that other
-company and is deliberately excluded from this repository.
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [iqm-resonance](https://apis.io/servers/iqm-quantum-computers/iqm-resonance/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Iqm Quantum Computers Authentication](https://apis.io/security/iqm-quantum-computers/iqm-quantum-computers-authentication/)
+- [Iqm Quantum Computers Domain Security](https://apis.io/security/iqm-quantum-computers/iqm-quantum-computers-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Iqm Quantum Computers Plans Pricing](https://apis.io/plans/iqm-quantum-computers/iqm-quantum-computers-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Iqm Quantum Computers Rate Limits](https://apis.io/rate-limits/iqm-quantum-computers/iqm-quantum-computers-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://iqm.tech/)
+- [Documentation](https://docs.iqm.tech/iqm-client/)
+- [Getting started](https://docs.iqm.tech/iqm-client/user_guide_qiskit.html)
+- [API reference](https://docs.iqm.tech/iqm-client/API.html)
+- [Pricing](https://iqm.tech/products/iqm-resonance/)
+- [Sign up](https://resonance.iqm.tech/sign-up)
+- [Support](https://iqm.tech/contact/)
+- [Blog](https://iqm.tech/blog/)
+- [Privacy policy](https://iqm.tech/privacy-policy/)
+- [GitHub](https://github.com/iqm-finland)
+
+## API Evangelist rating
+
+**Kin Score 44.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 24.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 71.4 |
+| Access clarity | 65.8 |
+
+**Agent readiness 18.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/iqm-quantum-computers/](https://apis.io/providers/iqm-quantum-computers/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for IQM Quantum Computers: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/iqm-quantum-computers/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
